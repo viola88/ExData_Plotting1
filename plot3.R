@@ -1,4 +1,11 @@
-# Read Data and extract relevant data
+# rm(list = ls()) # to clear the workspace
+# dev.off(dev.list()["RStudioGD"]) # close a\ll graphical devices
+# setwd("D:/Documents/Einarbeitung/Coursera")
+
+# Library for date and time
+library(lubridate)
+
+# Read data and transform date
 hpc <- read.table("household_power_consumption.txt",sep=";", header=TRUE, na.strings = c("?"))
 Date2 <- as.Date(hpc$Date,"%d/%m/%Y")
 hpc <- hpc[(year(Date2) == 2007) & (month(Date2) == 2) & (day(Date2)==1 | day(Date2)==2),]
@@ -9,8 +16,8 @@ xx <- strptime(xx,"%d/%m/%Y %H:%M:%S")
 # Plot 3
 png("plot3.png", width = 480, height = 480)
 plot(xx,hpc$Sub_metering_1,col="black",type="l",axes = F, xlab = NA, ylab="Energy sub metering")
-lines(xx,hpc$Sub_metering_2,col="blue")
-lines(xx,hpc$Sub_metering_3,col="red")
+lines(xx,hpc$Sub_metering_2,col="red")
+lines(xx,hpc$Sub_metering_3,col="blue")
 box()
 axis(1,at = seq(from=xx[1],to=xx[2880],length.out=3),labels=c("Thu","Fri","Sat"),las=0)
 axis(side=2)
